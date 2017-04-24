@@ -1,0 +1,19 @@
+---
+  - name: stop postgresql
+    service: name=postgresql state=stopped
+
+  - name: "Pre replica config 1"
+    #sudo: yes
+    #sudo_user: "postgres"
+    #file: path=/var/lib/pgsql/data/ state=absent
+    raw: rm -rf /var/lib/pgsql/data/*
+        
+  - name: "Pre replica config 2"
+    command: "su - postgres"
+      
+  - name: "Pre replica config 3"
+    command: "pg_basebackup -D /var/lib/pgsql/data/ -h 210.108.129.197 -U replicador"
+    
+  - name: "Permission"
+    file: "path=/var/lib/pgsql/data/ state=directory owner=postgres group=postgres mode=0700 recurse=yes"
+  

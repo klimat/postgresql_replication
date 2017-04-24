@@ -1,0 +1,37 @@
+---
+#Install PostgreSQL for 2 centos
+- name: Create a PostgreSQL DB servers
+  hosts: my-centos-srv
+  sudo: yes
+  vars_files:
+     - /etc/ansible/postgresql/my_ansible_postgresql_replics/vars/main.yml
+
+  tasks:
+  - include: '/etc/ansible/postgresql/my_ansible_postgresql_replics/roles/createdb/tasks/main.yml'
+  
+#Configure master
+
+- name: Configure master
+  hosts: postgres-master
+  tasks:
+  - include: '/etc/ansible/postgresql/my_ansible_postgresql_replics/tasks/master.yml'
+
+
+#Pre Configure master
+- hosts: postgres-master
+  sudo: yes
+  sudo_user: postgres
+  tasks:
+  - include: '/etc/ansible/postgresql/my_ansible_postgresql_replics/tasks/preconfig_master.yml'
+
+- name: Pre Configure slave
+  hosts: postgres-slave
+  tasks:
+  - include: '/etc/ansible/postgresql/my_ansible_postgresql_replics/tasks/preconfig_slave.yml'
+  
+#Configure slave
+  
+- name: Configure Slave
+  hosts: postgres-slave
+  tasks:
+  - include: '/etc/ansible/postgresql/my_ansible_postgresql_replics/tasks/slave.yml'

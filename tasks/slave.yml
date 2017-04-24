@@ -1,0 +1,14 @@
+- name: Create slave configs pg_hba.conf
+  template: src=/etc/ansible/postgresql/my_ansible_postgresql_replics/templates/slave/pg_hba.conf dest=/var/lib/pgsql/data/pg_hba.conf mode=0644
+  sudo: yes
+
+- name: Create slave configs postgresql.conf
+  template: src=/etc/ansible/postgresql/my_ansible_postgresql_replics/templates/slave/postgresql.conf dest=/var/lib/pgsql/data/postgresql.conf mode=0644
+  sudo: yes
+
+- name: Create slave configs postgresql.conf
+  template: src=/etc/ansible/postgresql/my_ansible_postgresql_replics/templates/recovery.conf dest=/var/lib/pgsql/data/recovery.conf mode=0644
+  sudo: yes
+
+- name: start postgresql
+  service: name=postgresql state=started

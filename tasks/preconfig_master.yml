@@ -1,0 +1,10 @@
+- name: "Add replication postgresql user"
+  postgresql_user:
+    state: present
+    name: "replicador"
+    encrypted: no
+    password: "replicador"
+    role_attr_flags: "REPLICATION"
+  become: true
+  become_user: postgres              
+
