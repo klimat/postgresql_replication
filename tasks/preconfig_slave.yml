@@ -17,3 +17,6 @@
   - name: "Permission"
     file: "path=/var/lib/pgsql/data/ state=directory owner=postgres group=postgres mode=0700 recurse=yes"
   
+  - name: сreate log directory
+    file: "path=/var/log/postgres/ state=directory owner=postgres group=postgres mode=0755 recurse=yes"
+    

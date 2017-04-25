@@ -1,5 +1,7 @@
 - name: stop postgresql
   service: name=postgresql state=stopped 
+- name: сreate log directory
+  file: "path=/var/log/postgres/ state=directory owner=postgres group=postgres mode=0755 recurse=yes"
 - name: Create master configs pg_hba.conf
   template: src=/etc/ansible/postgresql/my_ansible_postgresql_replics/templates/master/pg_hba.conf dest=/var/lib/pgsql/data/pg_hba.conf mode=0644
   sudo: yes
